@@ -3,6 +3,7 @@ import { HttpClient,HttpErrorResponse,HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Paciente } from '../Interfaces/Paciente';
+import { url } from 'inspector';
 
 @Injectable()
 export class PacienteProvider {
@@ -43,74 +44,82 @@ export class PacienteProvider {
     }
   }
 
-  putPersona(
-    id: any,
-    Nombre: string,
-    Apellido: string,
-    Dni: string,
-    FechaNacimiento: Date,
-    Sexo: boolean,
-    Email: string,
-    Telefono: string,
-    Antecedentes: string
-  ): Observable<any> {
-    try {
-      const comando = {
-        id: id,
-        Nombre: Nombre,
-        Apellido: Apellido,
-        Dni: Dni,
-        FechaNacimiento: FechaNacimiento,
-        Sexo: Sexo,
-        Email: Email,
-        Telefono: Telefono,
-        Antecedentes: Antecedentes,
-      };
-      const url = this.apiUrlBase + "api/Paciente/Put/{id}";
-      //const headers = { 'Content-Type': 'application/json' };
-      const body = JSON.stringify(comando);
-      //return this.http.put(url, body, {'headers': headers});
-      return this.http.put(url, body, this._options);
-    } catch (error:any) {
-      return this.handleError(error);
-    }
-  }
+  // putPersona(
+  //   id: any,
+  //   Nombre: string,
+  //   Apellido: string,
+  //   Dni: string,
+  //   FechaNacimiento: Date,
+  //   Sexo: boolean,
+  //   Email: string,
+  //   Telefono: string,
+  //   Antecedentes: string
+  // ): Observable<any> {
+  //   try {
+  //     const comando = {
+  //       id: id,
+  //       Nombre: Nombre,
+  //       Apellido: Apellido,
+  //       Dni: Dni,
+  //       FechaNacimiento: FechaNacimiento,
+  //       Sexo: Sexo,
+  //       Email: Email,
+  //       Telefono: Telefono,
+  //       Antecedentes: Antecedentes,
+  //     };
+  //     const url = this.apiUrlBase + "api/Paciente/Put/{id}";
+  //     //const headers = { 'Content-Type': 'application/json' };
+  //     const body = JSON.stringify(comando);
+  //     //return this.http.put(url, body, {'headers': headers});
+  //     return this.http.put(url, body, this._options);
+  //   } catch (error:any) {
+  //     return this.handleError(error);
+  //   }
+  // }
 
   eliminar(id: any): Observable<any> {
     const url = this.apiUrlBase + "api/Paciente/Delete/" + id;
     return this.http.delete(url);
   }
 
-  create(
-    id: any,
-    Nombre: string,
-    Apellido: string,
-    Dni: string,
-    FechaNacimiento: Date,
-    Sexo: boolean,
-    Email: string,
-    Telefono: string,
-    Antecedentes: string
-  ): Observable<any> {
-    try {
-      const comando = {
-        id: id,
-        Nombre: Nombre,
-        Apellido: Apellido,
-        Dni: Dni,
-        FechaNacimiento: FechaNacimiento,
-        Sexo: Sexo,
-        Email: Email,
-        Telefono: Telefono,
-        Antecedentes: Antecedentes,
-      };
-      const Url = this.apiUrlBase + "api/Paciente/Post";
-      //const headers = {'content-type':'application/json'}
-      const body = JSON.stringify(comando);
-      console.log(body);
-      return this.http.post(Url, body, this._options);
-    } catch (error:any) {
-      return this.handleError(error);
-    }
+  //create(paciente:Paciente
+    // nombre: string,
+    // apellido: string,
+    // dni: string,
+    // fechaNacimiento: Date,
+    // sexo: boolean,
+    // email: string,
+    // telefono: string,
+    // antecedentes: string,
+    // historialMedico:any
+  // ): Observable<any> {
+  //   try {
+  //     const comando = {
+  //       Nombre: nombre,
+  //       Apellido: apellido,
+  //       Dni: dni,
+  //       FechaNacimiento: fechaNacimiento,
+  //       Sexo: sexo,
+  //       Email: email,
+  //       Telefono: telefono,
+  //       Antecedentes: antecedentes,
+  //       HistorialMedico: historialMedico
+  //     };
+  //     const Url = this.apiUrlBase + "api/Paciente/Post";
+  //     //const headers = {'content-type':'application/json'}
+  //     const body = JSON.stringify(comando);
+  //     console.log(body);
+  //     return this.http.post(Url, body, this._options);
+  //   } catch (error:any) {
+  //     return this.handleError(error);
+  //   }
+  // }
+
+  agregar(paciente: Paciente): Observable<any>{
+    const Url = this.apiUrlBase + "api/Paciente/Post";
+    const body = JSON.stringify(paciente);
+    console.log(body);
+
+    return this.http.post<any>(Url,body,this._options)
   }
 }

@@ -2,51 +2,85 @@
   <div class="container">
     <div class="patients-container">
       <h2>Registro de pacientes</h2>
-      <form>
+      <form [formGroup]="formulario">
+        <div class="container">
         <div class="form-group">
-          <label for="name">Nombre</label>
-          <input type="text" id="name" name="name" class="form-control" placeholder="Ingresa el nombre del paciente" required>
+          <label for="Nombre" class="form-label">Nombre</label>
+          <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Ingresa el nombre del paciente" formControlName="Nombre">
         </div>
         <div class="form-group">
-          <label for="name">Apellido</label>
-          <input type="text" id="apellido" class="form-control" name="apellido" placeholder="Ingresa el apellido del paciente" required>
+          <label for="Apellido" class="form-label">Apellido</label>
+          <input type="text" id="Apellido" class="form-control" name="Apellido" placeholder="Ingresa el apellido del paciente" formControlName="Apellido">
         </div>
         <div class="form-group">
-          <label for="name">DNI</label>
-          <input type="text" id="DNI" name="DNI" class="form-control" placeholder="Ingresa el DNI del paciente" required>
+          <label for="Dni" class="form-label">DNI</label>
+          <input type="number" id="Dni" name="Dni" class="form-control" placeholder="Ingresa el DNI del paciente" formControlName="Dni">
         </div>
         <div class="form-group">
-          <label for="name">Fecha de nacimiento</label>
-          <input type="text" id="fechaNacimento" class="form-control" name="fechaNacimento" placeholder="Ingresa la fecha de nacimiento del paciente" required>
+          <label for="fechaNacimento" class="form-label">Fecha de nacimiento</label>
+          <input type="date" id="fechaNacimento" class="form-control" name="fechaNacimento" placeholder="Ingresa la fecha de nacimiento del paciente" formControlName="fechaNacimento">
         </div>
 
-      
+        <div class="form-group">
+          <label for="obrasSocial" class="form-label">Obra social</label>
+          <select id="obrasSociales" name="obrasSociales" formControlName="IdObraSocial">
+            <option  value="">Selecciona una obra social</option>
+            <option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.idObra">{{ obraSocial.descripcion }} </option>
+          </select>
+        </div>
+        
         <div class="form-check">
-          <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Option 1
-          <label class="form-check-label" for="radio1"></label>
+          <input class="form-check-input" type="radio" name="sexo" id="sexoHombre" [value]="true" formControlName="sexo">
+          <label class="form-check-label" for="sexoHombre">
+            Hombre
+          </label>
         </div>
         <div class="form-check">
-          <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">Option 2
-          <label class="form-check-label" for="radio2"></label>
-        </div>
-
-
-
-        <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" placeholder="Ingresa el correo electrónico del paciente" required>
+          <input class="form-check-input" type="radio" name="sexo" id="sexoMujer" [value]="false" formControlName="sexo">
+          <label class="form-check-label" for="sexoMujer">
+            Mujer
+          </label>
         </div>
         <div class="form-group">
-          <label for="phone">Teléfono</label>
-          <input type="tel" id="phone" name="phone" placeholder="Ingresa el número de teléfono del paciente" required>
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input type="email" id="email" name="email" placeholder="Ingresa el correo electrónico del paciente" formControlName="email">
         </div>
         <div class="form-group">
-          <label for="notes">Notas</label>
-          <textarea id="notes" name="notes" placeholder="Ingresa notas adicionales sobre el paciente"></textarea>
+          <label for="phone" class="form-label">Teléfono</label>
+          <input type="tel" id="phone" name="phone" placeholder="Ingresa el número de teléfono del paciente" formControlName="telefono">
         </div>
-        <button type="submit">Registrar paciente</button>
+        <div class="form-group">
+          <label for="antecedentes">Antecedentes medicos</label>
+          <textarea id="antecedentes" name="antecedentes" placeholder="Ingresa antecedentes sobre el paciente" formControlName="antecedentes"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="turno">turno</label>
+          <input type="number" id="turno" name="turno" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="IdTurno">
+        </div>
+        <div class="form-group">
+          <label for="usuario">usuario</label>
+          <input type="number" id="usuario" name="usuario" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="IdUsuario">
+        </div>
+        <hr>
+
+        <h4>Historial Medico</h4>
+        <div formGroupName="historialMedico">
+          <div class="form-group">
+            <label for="fechaCreacion">fecha de creacion del historial</label>
+            <input type="date" id="fechaCreacion" name="fechaCreacion" placeholder="Ingresa la fecha de creacion del historial del paciente" formControlName="fechaCreacion">
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripcion</label>
+            <input type="text" id="descripcion" name="descripcion" placeholder="Ingresa la descripcionn del historial del paciente" formControlName="descripcion">
+          </div>
+          <div class="form-group">
+            <label for="nota">Nota</label>
+            <input type="text" id="nota" name="nota" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="nota">
+          </div>
+        </div>
+    </div>
       </form>
-      <button class="btn btn-secondary"(click)="navegarGet()">Consultar pacientes</button>
+      <button class="btn btn-secondary"(click)="guardar()">Registrar paciente</button>
     </div>
   </div>
   </section>
