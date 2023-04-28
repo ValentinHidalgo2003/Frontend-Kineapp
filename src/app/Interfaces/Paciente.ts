@@ -13,6 +13,7 @@ import { obraSocial } from './obraSocial';
 //    historialMedico?:HistorialMedico;
 // }
 export interface Paciente {
+  IdPaciente?: number;
   Nombre?: string;
   Apellido?: string;
   Dni?: number;

@@ -38,7 +38,7 @@ export class PostComponent implements OnInit {
         telefono: [],
         antecedentes: [],
         idHistorialMedico: [],
-        IdObraSocial:[],
+        IdObraSocial:['',Validators.required],
         IdTurno:[],
         IdUsuario:[],
       historialMedico: this.formBuilder.group({
@@ -63,22 +63,22 @@ export class PostComponent implements OnInit {
         antecedentes: this.formulario.value.antecedentes,
         idObraSocial: this.formulario.value.IdObraSocial,
         idTurno: this.formulario.value.IdTurno,
-        idUsuario: this.formulario.value.IdUsuario
+        idUsuario: this.formulario.value.IdUsuario,
+         historialMedico : {
+          fechaCreacion: this.formulario.value.historialMedico.fechaCreacion,
+          descripcion: this.formulario.value.historialMedico.descripcion,
+          nota: this.formulario.value.historialMedico.nota
+        },
       };
       
-      const historialMedico = {
-        fechaCreacion: this.formulario.value.historialMedico.fechaCreacion,
-        descripcion: this.formulario.value.historialMedico.descripcion,
-        nota: this.formulario.value.historialMedico.nota
-      };
       
-      const objeto = {
-        paciente,
-        historialMedico
-      };
+      // const objeto = {
+      //   paciente,
+      //   historialMedico
+      // };
       
       this.subscripcion.add(
-        this.pacienteProvider.agregar(objeto).subscribe({
+        this.pacienteProvider.agregar(paciente).subscribe({
           next: () => {
             this.router.navigate(['consultar']);
             alert('Se guardo correctamente');

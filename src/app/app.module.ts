@@ -10,6 +10,8 @@ import { PostComponent } from './Paciente/post/post.component';
 import { PacienteProvider } from './Servicios/pacienteServicio';
 import { HttpClientModule } from '@angular/common/http';
 import { obraSocialProvider } from './Servicios/obraSocialProvider';
+import { BajaComponent } from './Paciente/baja/baja.component';
+import { PutComponent } from './put/put.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { obraSocialProvider } from './Servicios/obraSocialProvider';
     LoginComponent,
     GetComponent,
     PostComponent,
+    BajaComponent,
+    PutComponent,
   ],
   imports: [
     BrowserModule,

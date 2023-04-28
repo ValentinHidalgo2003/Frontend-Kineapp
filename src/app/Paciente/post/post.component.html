@@ -23,11 +23,12 @@
 
         <div class="form-group">
           <label for="obrasSocial" class="form-label">Obra social</label>
-          <select id="obrasSociales" name="obrasSociales" formControlName="IdObraSocial">
-            <option  value="">Selecciona una obra social</option>
+          <select class="form-select" id="obrasSociales" name="obrasSociales" formControlName="IdObraSocial">
+            <option value="" disabled selected>Selecciona una obra social</option>
             <option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.idObra">{{ obraSocial.descripcion }} </option>
           </select>
         </div>
+        
         
         <div class="form-check">
           <input class="form-check-input" type="radio" name="sexo" id="sexoHombre" [value]="true" formControlName="sexo">
@@ -80,7 +81,7 @@
         </div>
     </div>
       </form>
-      <button class="btn btn-secondary"(click)="guardar()">Registrar paciente</button>
+      <button class="btn btn-secondary"(click)="guardar()"><i class="bi bi-send"></i>Registrar paciente</button>
     </div>
   </div>
   </section>
