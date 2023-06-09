@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Paciente } from '../Interfaces/Paciente';
+import { Paciente } from '../../Interfaces/Paciente';
 import { Subscription } from 'rxjs';
-import { obraSocialProvider } from '../Servicios/obraSocialProvider';
-import { PacienteProvider } from '../Servicios/pacienteServicio';
+import { obraSocialProvider } from '../../Servicios/obraSocialProvider';
+import { PacienteProvider } from '../../Servicios/pacienteServicio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { obraSocial } from '../Interfaces/obraSocial';
+import { obraSocial } from '../../Interfaces/obraSocial';
 import { HttpParams } from '@angular/common/http';
 
 @Component({
@@ -56,8 +56,7 @@ export class PutComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.activatedRoute.params.subscribe({
         next: (params) => {
-          const id = params['id'];
-          
+          const id = params['id'];   
           this.pacienteProvider.getPersonaById(id).subscribe({
             next: (respuesta: Paciente) => {
               this.paciente = respuesta;

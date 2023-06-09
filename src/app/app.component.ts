@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Frontend-Kineapp';
+  constructor(private authService: AuthService) {}
+
+  public cerrar(): void {
+    this.authService.logout();
+  }
 }

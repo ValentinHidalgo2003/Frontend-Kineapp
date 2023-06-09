@@ -7,6 +7,7 @@ import { Paciente } from 'src/app/Interfaces/Paciente';
 import { obraSocial } from 'src/app/Interfaces/obraSocial';
 import { obraSocialProvider } from 'src/app/Servicios/obraSocialProvider';
 import { PacienteProvider } from 'src/app/Servicios/pacienteServicio';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -24,7 +25,8 @@ export class PostComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private pacienteProvider: PacienteProvider,
-    private obrasocialProvider: obraSocialProvider
+    private obrasocialProvider: obraSocialProvider,
+    private authservice: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -40,11 +42,15 @@ export class PostComponent implements OnInit {
         idHistorialMedico: [],
         IdObraSocial:['',Validators.required],
         IdTurno:[],
-        IdUsuario:[],
+        
       historialMedico: this.formBuilder.group({
         fechaCreacion: [],
         descripcion: [],
         nota: [],
+      }),
+      usuario : this.formBuilder.group({
+        nombreUsuario : [,Validators.required],
+        password : [,Validators.required]
       })
     });
     this.obrasocialProvider.getObraSocial().subscribe(data => {this.obrasSociales = data} )
@@ -69,20 +75,20 @@ export class PostComponent implements OnInit {
           descripcion: this.formulario.value.historialMedico.descripcion,
           nota: this.formulario.value.historialMedico.nota
         },
+        usuario : {
+          nombreUsuario : this.formulario.value.usuario.nombreUsuario,
+          password : this.formulario.value.usuario.password,
+          idRol: 1
+        }
       };
-      
-      
-      // const objeto = {
-      //   paciente,
-      //   historialMedico
-      // };
-      
+
       this.subscripcion.add(
         this.pacienteProvider.agregar(paciente).subscribe({
-          next: () => {
+          next: (data) => {
             this.router.navigate(['consultar']);
             alert('Se guardo correctamente');
             this.formulario.reset();
+            this.authservice.setToken(data.token);
           },
           error: (error) => {
             alert('error al guardar');

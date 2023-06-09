@@ -13,11 +13,17 @@
   .patients h2 {
     font-size: 36px;
     font-weight: bold;
-    margin-bottom: 30px;
-    color: #f39c12;
+    margin-bottom: 50px;
+    color: rgb(243, 156, 18);
     text-align: center;
   }
-  
+  label{
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: rgb(243, 156, 18);
+    text-align: center;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -97,6 +103,25 @@
   .icono-grande {
     font-size: 2em; 
   }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-container label {
+    margin-right: 10px;
+    color: #f39c12;
+  }
+  
+  .input-container .input-group {
+    display: flex;
+  }
+  
+  .input-container .form-control {
+    margin-right: 5px;
+  }
+  
   
   @keyframes circle-in-center {
     from {

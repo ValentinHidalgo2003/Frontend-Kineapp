@@ -1,28 +1,28 @@
-<section class="patients">
+<section class="patients" transition-style='in:circle:center' >
   <div class="container">
     <div class="patients-container">
-      <h2>Registro de pacientes</h2>
+      <h2 class="animate__animated animate__backInDown">Registro de pacientes</h2>
       <form [formGroup]="formulario">
         <div class="container">
         <div class="form-group">
-          <label for="Nombre" class="form-label">Nombre</label>
+          <label for="Nombre" class="form-label animate__animated animate__backInDown">Nombre</label>
           <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Ingresa el nombre del paciente" formControlName="Nombre">
         </div>
         <div class="form-group">
-          <label for="Apellido" class="form-label">Apellido</label>
+          <label for="Apellido" class="form-label animate__animated animate__backInDown">Apellido</label>
           <input type="text" id="Apellido" class="form-control" name="Apellido" placeholder="Ingresa el apellido del paciente" formControlName="Apellido">
         </div>
         <div class="form-group">
-          <label for="Dni" class="form-label">DNI</label>
+          <label for="Dni" class="form-label animate__animated animate__backInDown">DNI</label>
           <input type="number" id="Dni" name="Dni" class="form-control" placeholder="Ingresa el DNI del paciente" formControlName="Dni">
         </div>
         <div class="form-group">
-          <label for="fechaNacimento" class="form-label">Fecha de nacimiento</label>
+          <label for="fechaNacimento" class="form-label animate__animated animate__backInDown">Fecha de nacimiento</label>
           <input type="date" id="fechaNacimento" class="form-control" name="fechaNacimento" placeholder="Ingresa la fecha de nacimiento del paciente" formControlName="fechaNacimento">
         </div>
 
         <div class="form-group">
-          <label for="obrasSocial" class="form-label">Obra social</label>
+          <label for="obrasSocial" class="form-label animate__animated animate__backInDown">Obra social</label>
           <select class="form-select" id="obrasSociales" name="obrasSociales" formControlName="IdObraSocial">
             <option value="" disabled selected>Selecciona una obra social</option>
             <option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.idObra">{{ obraSocial.descripcion }} </option>
@@ -32,56 +32,60 @@
         
         <div class="form-check">
           <input class="form-check-input" type="radio" name="sexo" id="sexoHombre" [value]="true" formControlName="sexo">
-          <label class="form-check-label" for="sexoHombre">
+          <label class="form-check-label animate__animated animate__backInDown" for="sexoHombre">
             Hombre
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="sexo" id="sexoMujer" [value]="false" formControlName="sexo">
-          <label class="form-check-label" for="sexoMujer">
+          <label class="form-check-label animate__animated animate__backInDown" for="sexoMujer">
             Mujer
           </label>
         </div>
         <div class="form-group">
-          <label for="email" class="form-label">Correo electrónico</label>
+          <label for="email" class="form-label animate__animated animate__backInDown">Correo electrónico</label>
           <input type="email" id="email" name="email" placeholder="Ingresa el correo electrónico del paciente" formControlName="email">
         </div>
         <div class="form-group">
-          <label for="phone" class="form-label">Teléfono</label>
+          <label for="phone" class="form-label animate__animated animate__backInDown">Teléfono</label>
           <input type="tel" id="phone" name="phone" placeholder="Ingresa el número de teléfono del paciente" formControlName="telefono">
         </div>
         <div class="form-group">
-          <label for="antecedentes">Antecedentes medicos</label>
+          <label for="antecedentes" class="form-label animate__animated animate__backInDown">Antecedentes medicos</label>
           <textarea id="antecedentes" name="antecedentes" placeholder="Ingresa antecedentes sobre el paciente" formControlName="antecedentes"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="turno">turno</label>
-          <input type="number" id="turno" name="turno" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="IdTurno">
-        </div>
-        <div class="form-group">
-          <label for="usuario">usuario</label>
-          <input type="number" id="usuario" name="usuario" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="IdUsuario">
         </div>
         <hr>
 
-        <h4>Historial Medico</h4>
+        <h4 class="form-label animate__animated animate__backInDown">Historial Medico</h4>
         <div formGroupName="historialMedico">
           <div class="form-group">
-            <label for="fechaCreacion">fecha de creacion del historial</label>
+            <label for="fechaCreacion" class="form-label animate__animated animate__backInDown">fecha de creacion del historial</label>
             <input type="date" id="fechaCreacion" name="fechaCreacion" placeholder="Ingresa la fecha de creacion del historial del paciente" formControlName="fechaCreacion">
           </div>
           <div class="form-group">
-            <label for="descripcion">Descripcion</label>
+            <label for="descripcion" class="form-label animate__animated animate__backInDown">Descripcion</label>
             <input type="text" id="descripcion" name="descripcion" placeholder="Ingresa la descripcionn del historial del paciente" formControlName="descripcion">
           </div>
           <div class="form-group">
-            <label for="nota">Nota</label>
+            <label for="nota" class="form-label animate__animated animate__backInDown">Nota</label>
             <input type="text" id="nota" name="nota" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="nota">
+          </div>
+        </div>
+<hr>
+        <h4 class="form-label animate__animated animate__backInDown">Usuario</h4>
+        <div formGroupName="usuario">
+          <div class="form-group">
+            <label for="nombreUsuario" class="form-label animate__animated animate__backInDown">Nombre de Usuario</label>
+            <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresa su nuevo nombre de Usuario" formControlName="nombreUsuario">
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label animate__animated animate__backInDown">Contraseña</label>
+            <input type="password" id="password" name="password" placeholder="Ingresa su nueva contraseña" formControlName="password">
           </div>
         </div>
     </div>
       </form>
-      <button class="btn btn-secondary"(click)="guardar()"><i class="bi bi-send"></i>Registrar paciente</button>
+      <button class="btn btn-secondary"(click)="guardar()"><i class="bi bi-send"></i> Registrar paciente</button>
     </div>
   </div>
   </section>

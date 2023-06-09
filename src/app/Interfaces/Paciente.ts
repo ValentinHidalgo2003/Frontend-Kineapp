@@ -1,17 +1,6 @@
 import { HistorialMedico } from './HistorialMedico';
 import { obraSocial } from './obraSocial';
 
-// export interface Paciente{
-//     nombre?: string;
-//     apellido?: string;
-//     dni?: string;
-//     fechaNacimiento?: Date;
-//     sexo?: string;
-//     email?: string;
-//     telefono?: string;
-//     antecedentes?:string;
-//    historialMedico?:HistorialMedico;
-// }
 export interface Paciente {
   IdPaciente?: number;
   Nombre?: string;

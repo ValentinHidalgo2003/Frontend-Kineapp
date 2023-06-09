@@ -1,12 +1,30 @@
 <header>
   <div class="container">
-    <nav>
-      <a href="#" class="logo">Consultorio Kinesiológico</a>
+    <nav class="navbar-expand-lg">
+      <a href="#" class="logo">
+        <img src="../assets/KineApp.png" alt="Consultorio Kinesiológico">
+      </a>
       <ul>
         <li><a href="#" routerLink="home">Inicio</a></li>
         <li><a href="#" routerLink="login">Iniciar Sesion</a></li>
-        <li><a href="#" routerLink="registrar">Registrar Pacientes</a></li>
-        <li><a href="#" routerLink="consultar">Consultar Pacientes</a></li>
+        <li><a href="#" (click)="cerrar()">Cerrar Sesion</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Pacientes<i class="bi bi-caret-down-fill"></i>
+          </a>
+          <div class="dropdown-content">
+            <a href="#" routerLink="registrar">Registrar Pacientes</a>
+            <a href="#" routerLink="consultar">Consultar Pacientes</a>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Turnos<i class="bi bi-caret-down-fill"></i>
+          </a>
+          <div class="dropdown-content">
+            <a href="#" routerLink="registrarTurno">Registrar Turno</a>
+            <a href="#" routerLink="consultarTurno">Consultar Turno</a>
+          </div>
+        </li>
+        <li><a href="#" routerLink="reportes">Reportes</a></li>
       </ul>
     </nav>
   </div>

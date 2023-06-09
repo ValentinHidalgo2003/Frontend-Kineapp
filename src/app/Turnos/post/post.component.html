@@ -1,0 +1,232 @@
+<section class="patients" transition-style="in:circle:center">
+  <div class="container">
+    <div class="patients-container">
+      <h2 class="animate__animated animate__backInDown">Registro de Turnos</h2>
+      <form [formGroup]="formulario">
+        <div class="container">
+          <div formGroupName="detalleTurno">
+            <div class="form-group">
+              <label
+                for="fecha"
+                class="form-label animate__animated animate__backInDown"
+                >Fecha</label>
+              <input
+                type="date"
+                id="fecha"
+                name="fecha"
+                class="form-control"
+                placeholder="Ingresa la fecha del turno"
+                formControlName="fecha"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                for="horaInicio"
+                class="form-label animate__animated animate__backInDown"
+                >Hora de Inicio</label>
+              <input
+                type="time"
+                id="horaInicio"
+                class="form-control"
+                name="horaInicio"
+                placeholder="Ingresa la hora de inicio del turno"
+                formControlName="horaInicio"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                for="horaFin"
+                class="form-label animate__animated animate__backInDown"
+                >Hora de Fin</label
+              >
+              <input
+                type="time"
+                id="horaFin"
+                name="horaFin"
+                class="form-control"
+                placeholder="Ingresa la hora de fin del turno"
+                formControlName="horaFin"
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                for="precio"
+                class="form-label animate__animated animate__backInDown"
+                >Precio</label
+              >
+              <input
+                type="number"
+                id="precio"
+                class="form-control"
+                name="precio"
+                placeholder="Ingresa el precio del turno"
+                formControlName="precio"
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                for="paciente"
+                class="form-label animate__animated animate__backInDown"
+                >Seleccione el paciente</label
+              >
+              <select
+                class="form-select"
+                id="paciente"
+                name="paciente"
+                formControlName="idPaciente"
+              >
+                <option value="" disabled selected>
+                  Seleccione el paciente
+                </option>
+                <option
+                  *ngFor="let paciente of pacientes"
+                  [value]="paciente.idPaciente"
+                >
+                  {{ paciente.nombre }} {{paciente.apellido}}
+                </option>
+              </select>
+            </div>
+
+
+
+            <div class="form-group">
+              <label
+                for="obrasSocial"
+                class="form-label animate__animated animate__backInDown"
+                >Obra social</label
+              >
+              <select
+                class="form-select"
+                id="obrasSociales"
+                name="obrasSociales"
+                formControlName="idObraSocial"
+              >
+                <option value="" disabled selected>
+                  Selecciona una obra social
+                </option>
+                <option
+                  *ngFor="let obraSocial of obrasSociales"
+                  [value]="obraSocial.idObra"
+                >
+                  {{ obraSocial.descripcion }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label
+                for="idKinesiologo"
+                class="form-label animate__animated animate__backInDown"
+                >Kinesiológico</label
+              >
+              <select
+                class="form-select"
+                id="idKinesiologo"
+                name="idKinesiologo"
+                formControlName="idKinesiologo">
+                <option value="" disabled selected>
+                  Selecciona un Kinesiológico
+                </option>
+                <option
+                  *ngFor="let kinesiologo of kinesiologos"
+                  [value]="kinesiologo.idKinesiologo"
+                >
+                  {{ kinesiologo.nombre }} {{ kinesiologo.apellido }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label
+                for="idMedioPago"
+                class="form-label animate__animated animate__backInDown"
+                >Medio de Pago</label
+              >
+              <select
+                class="form-select"
+                id="idMedioPago"
+                name="idMedioPago"
+                formControlName="idMedioPago"
+              >
+                <option value="" disabled selected>
+                  Selecciona un Medio de pago
+                </option>
+                <option [value]="1">Efectivo</option>
+                <option [value]="2">Tarjeta</option>
+              </select>
+            </div>
+
+            <div formGroupName="tratamiento">
+              <div class="form-group">
+                <label
+                  for="idTipoTratamiento"
+                  class="form-label animate__animated animate__backInDown"
+                  >Tipo de tratamiento</label
+                >
+                <select
+                  class="form-select"
+                  id="idTipoTratamiento"
+                  name="idTipoTratamiento"
+                  formControlName="idTipoTratamiento"
+                >
+                  <option value="" disabled selected>
+                    Selecciona un Tipo de Tratamiento
+                  </option>
+                  <option
+                    *ngFor="let tratamiento of tipoTratamiento"
+                    [value]="tratamiento.idTipoTratamiento">
+                    {{ tratamiento.descripcion }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label
+                  for="fechaInicio"
+                  class="form-label animate__animated animate__backInDown"
+                  >Incio del tratamiento</label
+                >
+                <input
+                  type="date"
+                  id="fechaInicio"
+                  name="fechaInicio"
+                  formControlName="fechaInicio"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="fechaFin"
+                  class="form-label animate__animated animate__backInDown"
+                  >Fin del tratamiento</label
+                >
+                <input
+                  type="date"
+                  id="fechaFin"
+                  name="fechaFin"
+                  formControlName="fechaFin"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="objetivo"
+                  class="form-label animate__animated animate__backInDown"
+                  >Objetivo del tratamiento</label
+                >
+                <textarea
+                  id="objetivo"
+                  name="objetivo"
+                  placeholder="Ingresa el objetivo que quiere obtener con el tratamiento"
+                  formControlName="objetivo"
+                ></textarea>
+              </div>
+            </div>
+
+            <hr />
+          </div>
+        </div>
+      </form>
+      <button class="btn btn-secondary" (click)="guardar()">
+        <i class="bi bi-send"></i> Registrar paciente
+      </button>
+    </div>
+  </div>
+</section>

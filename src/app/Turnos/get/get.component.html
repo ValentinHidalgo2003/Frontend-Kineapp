@@ -1,0 +1,70 @@
+<section class="patients" transition-style="in:circle:center">
+    <div class="patients-container">
+        <h2>Consulta de Turnos</h2>
+        <div class="filter-container">
+          <h3 class="filter-title">Filtrar por fecha:</h3>
+          <div class="filter-input">
+            <input type="date" [(ngModel)]="fechaFiltro" (change)="filtrarPorFecha()" />
+          </div>
+        </div>
+
+        <!-- <input type="date" [(ngModel)]="fechaFiltro" /> -->
+<!-- <button (click)="filtrarPorFecha()">Buscar</button> -->
+
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Horario</th>
+                <th>Tratamiento</th>
+                <th>Medio de Pago</th>
+                <th>Obra social</th>
+                <th>Mas datos</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let turno of Turnos">
+                <td>{{turno.detalleTurno?.fecha | date:'dd/MM/yyyy'}}</td>
+                <td>{{turno.detalleTurno?.horaInicio }} - {{turno.detalleTurno?.horaFin}}</td>
+                <td>{{turno.detalleTurno?.tratamiento?.objetivo}}</td>
+                <td>{{turno.detalleTurno?.medioPago?.tipoMedioPago ? 'Efectivo' : 'Tarjeta'}}</td>
+                <td>{{turno.detalleTurno?.obraSocial?.descripcion}}</td>
+                <td> 
+                <i class="bi bi-clipboard icono-grande" data-toggle="modal" (click)="abrirModal(turno.detalleTurno)" data-target="#exampleModal"></i>
+              </td>
+                <td>             
+                  <i class="bi bi-trash" (click)="eliminar(turno.idDetalleTurno)"></i>  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </section>
+  
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detalles sobre el turno</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Medio de pago: </strong> {{detalleTurnoSeleccionado?.medioPago?.tipoMedioPago ? 'Efectivo' : 'Tarjeta'}}</p>
+          <p><strong>Tipo de tratamiento:</strong> {{detalleTurnoSeleccionado?.tratamiento?.tipoTratamiento?.descripcion}}</p>
+          <p><strong>Kinesiologo:</strong> {{detalleTurnoSeleccionado?.kinesiologo?.nombre}} {{detalleTurnoSeleccionado?.kinesiologo?.apellido}}</p>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
