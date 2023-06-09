@@ -1,0 +1,24 @@
+<section class="patients" transition-style="in:circle:center">
+  <div class="patients-container">
+    <h2 class="animate__animated animate__backInDown">Reportes</h2>
+    <label style="color: #f39c12;">Recaudado por cada medio de pago en el mes</label>
+    <div class="input-container">
+      <label for="mes">Seleccione el mes que desea obtener información</label>
+      <div class="input-group">
+        <input type="number" id="mes" name="mes" class="form-control" [(ngModel)]="mes">
+        <button class="btn btn-primary" (click)="llamarAPI()">Obtener Informe</button>
+      </div>
+    </div>
+    <hr>
+
+    <div class="chart-container">
+      <label for="" style="color: #f39c12;">Cantidad de Pacientes por Obra Social</label>
+      <canvas #chartCanvas></canvas>
+    </div>
+  </div>
+
+</section>
+
+<div class="container">
+  <canvas #chartCanvas2></canvas>
+</div>
