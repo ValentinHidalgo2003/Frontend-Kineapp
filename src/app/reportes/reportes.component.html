@@ -9,16 +9,40 @@
         <button class="btn btn-primary" (click)="llamarAPI()">Obtener Informe</button>
       </div>
     </div>
-    <hr>
 
     <div class="chart-container">
-      <label for="" style="color: #f39c12;">Cantidad de Pacientes por Obra Social</label>
       <canvas #chartCanvas></canvas>
+    </div>
+    <label for="" style="color: #f39c12;">Cantidad de Pacientes por Obra Social</label>
+    <div class="container">
+      <canvas #chartCanvas2></canvas>
     </div>
   </div>
 
+  <br><br>
+
+  
+  <label for="" style="color: #f39c12;">Cantidad de Turnos Semanales por Día</label>
+  <div class="chart-container">
+    <canvas #chartCanvas4></canvas>
+  </div>
+
+
+  <br><br><br><br>
+  
+  
+  <div class="container">
+  <div class="input-container">
+    <label for="dia">Escriba el día de semana que desea saber la cantidad de Turnos</label>
+    <div class="input-group">
+      <input type="text" id="dia" name="dia" class="form-control" [(ngModel)]="dia">
+      <button class="btn btn-primary" (click)="crearGrafico3()">Obtener Informe</button>
+    </div>
+  </div>
+</div>
+  <label for="" style="color: #f39c12;">Cantidad de Turnos por Día de la Semana</label>
+  <div class="chart-container">
+    <canvas #chartCanvas3></canvas>
+  </div>
 </section>
 
-<div class="container">
-  <canvas #chartCanvas2></canvas>
-</div>

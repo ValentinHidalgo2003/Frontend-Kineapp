@@ -2,14 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { error } from 'console';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isLoggedIn1: boolean = false;
+  private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private idRol: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   apiUrlBase: string = environment.urlBaseApi;
   private _options = {
     headers: new HttpHeaders({
@@ -19,8 +20,11 @@ export class AuthService {
   };
   constructor(private http: HttpClient, private cookies: CookieService) {}
 
-  public isLoggedIn(): boolean {
-    return this.isLoggedIn1;
+  public isLoggedIn(): Observable<boolean> {
+    return this.isLoggedIn$.asObservable();
+  }
+  public setLoggedIn(value: boolean): void {
+    this.isLoggedIn$.next(value);
   }
 
   public login(usuario: any): Observable<any> {
@@ -29,18 +33,27 @@ export class AuthService {
   
     return this.http.post<any>(Url, body, this._options).pipe(
       map(response => {
-        if (response && response.token) {
-          this.isLoggedIn1 = true;
+        if (response) {
+          this.setLoggedIn(true);
+          this.setIdRol(response.idRol);
+          console.log("rol ", this.getIdRol())
         } else {
-          this.isLoggedIn1 = false;
+          this.setLoggedIn(false);
         }
         return response;
       })
     );
   }
+  public getIdRol(): Observable<number> {
+    return this.idRol.asObservable();
+  }
+
+  public setIdRol(idRol: number): void {
+    this.idRol.next(idRol);
+  }
 
   public logout(): void {
-    this.isLoggedIn1 = false;
+    this.setLoggedIn(false);
     alert('sesion cerrada')
   }
 

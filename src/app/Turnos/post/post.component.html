@@ -6,10 +6,7 @@
         <div class="container">
           <div formGroupName="detalleTurno">
             <div class="form-group">
-              <label
-                for="fecha"
-                class="form-label animate__animated animate__backInDown"
-                >Fecha</label>
+              <label for="fecha" class="form-label animate__animated animate__backInDown">Fecha</label>
               <input
                 type="date"
                 id="fecha"
@@ -18,7 +15,9 @@
                 placeholder="Ingresa la fecha del turno"
                 formControlName="fecha"
               />
+              <span class="error-message" *ngIf="formulario.controls['fecha'] != undefined &&formulario.controls['fecha'].touched && formulario.controls['fecha'].hasError('required')">Fecha requerida</span>
             </div>
+            
             <div class="form-group">
               <label
                 for="horaInicio"
@@ -32,6 +31,7 @@
                 placeholder="Ingresa la hora de inicio del turno"
                 formControlName="horaInicio"
               />
+              <span class="error-message" *ngIf="formulario.controls['horaInicio'] != undefined &&formulario.controls['horaInicio'].touched && formulario.controls['horaInicio'].hasError('required')">Hora requerida</span>
             </div>
             <div class="form-group">
               <label
@@ -47,13 +47,14 @@
                 placeholder="Ingresa la hora de fin del turno"
                 formControlName="horaFin"
               />
+              <span class="error-message" *ngIf="formulario.controls['horaFin'] != undefined && formulario.controls['horaFin'].touched && formulario.controls['horaFin'].hasError('required')">Hora requerida</span>
             </div>
 
             <div class="form-group">
               <label
                 for="precio"
                 class="form-label animate__animated animate__backInDown"
-                >Precio</label
+                >Precio por sesion</label
               >
               <input
                 type="number"
@@ -62,6 +63,21 @@
                 name="precio"
                 placeholder="Ingresa el precio del turno"
                 formControlName="precio"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                for="sesiones"
+                class="form-label animate__animated animate__backInDown"
+                >Cantidad de Sesiones</label
+              >
+              <input
+                type="number"
+                id="sesiones"
+                class="form-control"
+                name="sesiones"
+                placeholder="Ingresa las sesiones"
+                formControlName="sesiones"
               />
             </div>
 
@@ -87,8 +103,8 @@
                   {{ paciente.nombre }} {{paciente.apellido}}
                 </option>
               </select>
+              <span class="error-message" *ngIf="formulario.controls['idPaciente'] != undefined && formulario.controls['idPaciente'].touched && formulario.controls['idPaciente'].hasError('required')">Paciente requerido</span>
             </div>
-
 
 
             <div class="form-group">
@@ -113,6 +129,7 @@
                   {{ obraSocial.descripcion }}
                 </option>
               </select>
+              <span class="error-message" *ngIf="formulario.controls['idObraSocial'] != undefined && formulario.controls['idObraSocial'].touched && formulario.controls['idObraSocial'].hasError('required')">obra social requerida</span>
             </div>
             <div class="form-group">
               <label
@@ -178,6 +195,7 @@
                     {{ tratamiento.descripcion }}
                   </option>
                 </select>
+              <span class="error-message" *ngIf="formulario.controls['idTipoTratamiento'] != undefined && formulario.controls['idTipoTratamiento'].touched && formulario.controls['idTipoTratamiento'].hasError('required')">Tipo de tratamiento requerido</span>
               </div>
               <div class="form-group">
                 <label
@@ -219,7 +237,6 @@
                 ></textarea>
               </div>
             </div>
-
             <hr />
           </div>
         </div>

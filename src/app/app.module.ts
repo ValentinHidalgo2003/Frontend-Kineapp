@@ -22,7 +22,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { reportesProvider } from './Servicios/reportesProvider';
 import { ReportesComponent } from './reportes/reportes.component';
 import { DatePipe } from '@angular/common';
-
+import { TycComponent } from './Info/tyc/tyc.component';
+import { PreguntasComponent } from './Info/preguntas/preguntas.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,8 @@ import { DatePipe } from '@angular/common';
     GetTurnoComponent,
     PostTurnoComponent,
     ReportesComponent,
+    TycComponent,
+    PreguntasComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,8 +45,7 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
-
+    CommonModule
   ],
   providers: [
     PacienteProvider,
@@ -58,3 +60,5 @@ import { DatePipe } from '@angular/common';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+

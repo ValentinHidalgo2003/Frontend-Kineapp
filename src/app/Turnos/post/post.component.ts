@@ -9,6 +9,7 @@ import { obraSocialProvider } from 'src/app/Servicios/obraSocialProvider';
 import { PacienteProvider } from 'src/app/Servicios/pacienteServicio';
 import { tipoTratamientoProvider } from 'src/app/Servicios/tiposTratamientoProvider';
 import { TurnoProvider } from 'src/app/Servicios/turnoProvider';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-post',
@@ -34,17 +35,22 @@ export class PostTurnoComponent implements OnInit {
     private pacienteProvider : PacienteProvider,
     private tipotratamientoProvider: tipoTratamientoProvider
   ) {}
-
+  get email(){ 
+    var resultado =  this.formulario.get('fecha')?.touched; 
+  console.log(resultado) 
+  return resultado
+}
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
       detalleTurno: this.formBuilder.group({
-        fecha: [, Validators.required],
-        horaInicio: [],
-        horaFin: [],
+        fecha: ['', Validators.required],
+        horaInicio: [,Validators.required],
+        horaFin: [,Validators.required],
         precio: [],
         idObraSocial: [, Validators.required],
         idKinesiologo: [],
         idMedioPago: [],
+        sesiones:[],
         idPaciente : [,Validators.required],
         tratamiento: this.formBuilder.group({
           idTipoTratamiento: [, Validators.required],
@@ -68,7 +74,10 @@ export class PostTurnoComponent implements OnInit {
     });
     console.log(this.kinesiologos)
   }
-
+  getPaciente(idPaciente: number) {
+    return this.pacientes.find((paciente: any) => paciente.idPaciente === idPaciente);
+  }
+  
   guardar() {
     if (this.formulario.valid) {
       const horaInicio = this.formulario.value.detalleTurno.horaInicio + ":00";
@@ -83,6 +92,7 @@ export class PostTurnoComponent implements OnInit {
           idObraSocial: this.formulario.value.detalleTurno.idObraSocial,
           idKinesiologo: this.formulario.value.detalleTurno.idKinesiologo,
           idPaciente: this.formulario.value.detalleTurno.idPaciente,
+          cantidadSesiones : this.formulario.value.detalleTurno.sesiones,
           idMedioPago: this.formulario.value.detalleTurno.idMedioPago,
           tratamiento: {
             idTipoTratamiento: this.formulario.value.detalleTurno.tratamiento.idTipoTratamiento,
@@ -98,21 +108,38 @@ export class PostTurnoComponent implements OnInit {
           next: () => {
             console.log(turno)
             this.router.navigate(['consultarTurno']);
-            alert('Se guardo correctamente');
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Turno guardado Correctamente',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.formulario.reset();
           },
           error: (error) => {
-            alert('error al guardar');
-            console.log(turno);
-            console.log(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Hubo un error al guardar el turno!',
+            })
+            
           },
         })
       );
+    }
+    else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Te faltan campos por completar!',
+        timer: 2000
+      })
     }
   }
   
 
   navegarGet() {
     this.router.navigate(['consultarTurno']);
-  }
+  }  
 }

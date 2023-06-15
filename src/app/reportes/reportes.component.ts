@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { reportesProvider } from '../Servicios/reportesProvider';
 import { error } from 'console';
-import { Chart, ChartType, registerables } from 'chart.js';
+import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
@@ -11,20 +11,27 @@ Chart.register(...registerables);
 })
 export class ReportesComponent implements AfterViewInit {
   reporte1: any = [];
+  reporte3: any[] = [];
   chart1: Chart | null = null;
   chart2: Chart | null = null;
+  chart3: Chart | null = null;
+  chart4: Chart | null = null;
   mes: number;
+  dia: string;
   @ViewChild('chartCanvas') chartCanvas: ElementRef;
   @ViewChild('chartCanvas2') chartCanvas2: ElementRef;
+  @ViewChild('chartCanvas3') chartCanvas3: ElementRef;
+  @ViewChild('chartCanvas4') chartCanvas4: ElementRef;
   constructor(private reportes: reportesProvider) {}
 
   ngAfterViewInit(): void {
     this.crearGrafico();
+    this.crearGrafico4();
   }
 
   llamarAPI() {
     this.reportes.getReporte2(this.mes).subscribe((data) => {
-      console.log(this.mes)
+      console.log(data)
       this.createChart(data.totalTarjeta, data.totalEfectivo);
     });
   }
@@ -49,8 +56,8 @@ export class ReportesComponent implements AfterViewInit {
         ],
       },
       options: {
-        maintainAspectRatio: false,
-        responsive: true,
+         responsive: true,
+         maintainAspectRatio: false,
         scales: {
           y: {
             beginAtZero: true,
@@ -69,29 +76,101 @@ export class ReportesComponent implements AfterViewInit {
           {
             label: 'Cantidad de Pacientes',
             data: data.map((item: any) => item.cantidadPacientes),
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 0.2)',
+            backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
             borderWidth: 1,
           },
         ],
       };
-
+  
       const ctx = this.chartCanvas2.nativeElement.getContext('2d');
       if (this.chart2) {
         this.chart2.destroy();
       }
       this.chart2 = new Chart(ctx, {
-        type: 'bar',
+        type: 'pie',
         data: chartData,
         options: {
-          responsive: true,
+           responsive: true,
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: true,
             },
           },
         },
-      });
+      } as any);
+    });
+  }
+  
+  crearGrafico3(): void {
+    this.reportes.getReporte3(this.dia).subscribe((cantidadTurnos: number) => {
+      const chartData = {
+        labels: [this.dia],
+        datasets: [
+          {
+            label: 'Cantidad de Turnos',
+            data: [cantidadTurnos],
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 1,
+          },
+        ],
+      };
+  
+      const ctx = this.chartCanvas3.nativeElement.getContext('2d');
+      if (this.chart3) {
+        this.chart3.destroy();
+      }
+      this.chart3 = new Chart(ctx, {
+        type: 'doughnut',
+        data: chartData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      } as any);
+    });
+  }
+  
+  crearGrafico4(): void {
+    this.reportes.getReporte4().subscribe((data) => {
+      console.log(data);
+      const chartData = {
+        labels: Object.keys(data),
+        datasets: [
+          {
+            label: 'Cantidad de Turnos',
+            data: Object.values(data),
+            backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+            borderWidth: 1,
+          },
+        ],
+      };
+  
+      const ctx = this.chartCanvas4.nativeElement.getContext('2d');
+      if (this.chart4) {
+        this.chart4.destroy();
+      }
+      this.chart4 = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      } as ChartConfiguration<"bar", number[], string>); // Especificar el tipo de configuración del gráfico
     });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PacienteProvider } from 'src/app/Servicios/pacienteServicio';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-baja',
   templateUrl: './baja.component.html',
@@ -18,23 +18,33 @@ export class BajaComponent implements OnDestroy {
   }
 
   eliminar() {
-    const result: boolean = confirm(
-      'Está seguro que desea borrar la orden?'
-    );
-
-    if (result) {
       this.subscription.add(
         this.pacienteProvider.eliminar(this.idPaciente).subscribe({
           next: () => {
             this.onEliminar.emit();
-            console.log(this.idPaciente)
-            alert('se borro correctamente')
+            Swal.fire({
+              title: 'Estas Seguro?',
+              text: "No podras revertir esto!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, eliminar!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'Eliminado!',
+                  'El paciente fue borrado.',
+                  'success'
+                )
+              }
+            })
           },
           error: () => {
-            alert('error al borrar la orden');
+            alert('error al borrar');
           },
         })
       );
-    }
+    
   }
 }

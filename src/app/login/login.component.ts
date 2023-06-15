@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PacienteProvider } from '../Servicios/pacienteServicio';
 import { AuthService } from '../auth.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -37,14 +37,23 @@ export class LoginComponent implements OnInit {
         this.authservice.login(paciente).subscribe({
           next: (data) => {
             this.router.navigate(['home']);
-            alert('Sesion iniciada correctamente');
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Sesion iniciada Correctamente',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.formulario.reset();
             console.log(data);
-            this.authservice.setToken(data.token)
+            //this.authservice.setToken(data.token)
           },
           error: (error) => {
-            alert('Usuario o contraseña incorrecta');
-            console.log(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Usuario o Contraseña incorrecta!',
+            })
             if(this.authservice.isLoggedIn())
             this.formulario.reset();
           },

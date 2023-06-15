@@ -7,20 +7,15 @@
             <input type="date" [(ngModel)]="fechaFiltro" (change)="filtrarPorFecha()" />
           </div>
         </div>
-
-        <!-- <input type="date" [(ngModel)]="fechaFiltro" /> -->
-<!-- <button (click)="filtrarPorFecha()">Buscar</button> -->
-
-
         <div class="table-container">
           <table>
             <thead>
               <tr>
                 <th>Fecha</th>
                 <th>Horario</th>
-                <th>Tratamiento</th>
+                <th>Paciente</th>
+                <th>Cantidad Sesiones</th>
                 <th>Medio de Pago</th>
-                <th>Obra social</th>
                 <th>Mas datos</th>
                 <th>Eliminar</th>
               </tr>
@@ -29,9 +24,10 @@
               <tr *ngFor="let turno of Turnos">
                 <td>{{turno.detalleTurno?.fecha | date:'dd/MM/yyyy'}}</td>
                 <td>{{turno.detalleTurno?.horaInicio }} - {{turno.detalleTurno?.horaFin}}</td>
-                <td>{{turno.detalleTurno?.tratamiento?.objetivo}}</td>
+                <td>{{turno.detalleTurno?.paciente?.nombre}} {{turno.detalleTurno?.paciente?.apellido}}</td>
+                <td>{{turno.detalleTurno?.cantidadSesiones}}</td>
                 <td>{{turno.detalleTurno?.medioPago?.tipoMedioPago ? 'Efectivo' : 'Tarjeta'}}</td>
-                <td>{{turno.detalleTurno?.obraSocial?.descripcion}}</td>
+             
                 <td> 
                 <i class="bi bi-clipboard icono-grande" data-toggle="modal" (click)="abrirModal(turno.detalleTurno)" data-target="#exampleModal"></i>
               </td>
@@ -42,6 +38,7 @@
             </tbody>
           </table>
         </div>
+        <button class="export-button" (click)="exportarDatos()">Exportar a Excel <i class="bi bi-file-earmark-spreadsheet"></i></button>
     </div>
   </section>
   
@@ -58,9 +55,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <p><strong>Medio de pago: </strong> {{detalleTurnoSeleccionado?.medioPago?.tipoMedioPago ? 'Efectivo' : 'Tarjeta'}}</p>
           <p><strong>Tipo de tratamiento:</strong> {{detalleTurnoSeleccionado?.tratamiento?.tipoTratamiento?.descripcion}}</p>
           <p><strong>Kinesiologo:</strong> {{detalleTurnoSeleccionado?.kinesiologo?.nombre}} {{detalleTurnoSeleccionado?.kinesiologo?.apellido}}</p>
+          <p><strong>Objetivo del Tratamiento:</strong> {{detalleTurnoSeleccionado?.tratamiento?.objetivo}}</p>
+          <p><strong>Obra Social:</strong> {{detalleTurnoSeleccionado?.obraSocial?.descripcion}}</p>
         </div>
         <div class="modal-footer">
 

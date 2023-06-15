@@ -61,6 +61,4 @@ export class PacienteProvider {
     console.log(body);
     return this.http.post<any>(Url,body,this._options)
   }
-
-
 }

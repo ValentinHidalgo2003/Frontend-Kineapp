@@ -1,33 +1,76 @@
+
 <header>
-  <div class="container">
-    <nav class="navbar-expand-lg">
-      <a href="#" class="logo">
+  <div class="container" *ngIf="isLoggedIn">
+    <nav class="navbar navbar-expand-lg">
+      <a href="#" class="navbar-brand logo">
         <img src="../assets/KineApp.png" alt="Consultorio Kinesiológico">
       </a>
-      <ul>
-        <li><a href="#" routerLink="home">Inicio</a></li>
-        <li><a href="#" routerLink="login">Iniciar Sesion</a></li>
-        <li><a href="#" (click)="cerrar()">Cerrar Sesion</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropbtn">Pacientes<i class="bi bi-caret-down-fill"></i>
-          </a>
-          <div class="dropdown-content">
-            <a href="#" routerLink="registrar">Registrar Pacientes</a>
-            <a href="#" routerLink="consultar">Consultar Pacientes</a>
-          </div>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropbtn">Turnos<i class="bi bi-caret-down-fill"></i>
-          </a>
-          <div class="dropdown-content">
-            <a href="#" routerLink="registrarTurno">Registrar Turno</a>
-            <a href="#" routerLink="consultarTurno">Consultar Turno</a>
-          </div>
-        </li>
-        <li><a href="#" routerLink="reportes">Reportes</a></li>
-      </ul>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"><i class="bi bi-caret-down-fill"></i></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="home">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="login" *ngIf="!isLoggedIn">Iniciar Sesion</a>
+          </li>
+          <li class="nav-item dropdown" >
+            <a class="nav-link dropdown-toggle" href="#" id="pacientesDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Pacientes
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="pacientesDropdown">
+              <li><a class="dropdown-item" href="#" routerLink="registrar">Registrar Pacientes</a></li>
+              <li><a class="dropdown-item" href="#" routerLink="consultar">Consultar Pacientes</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="turnosDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Turnos
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="turnosDropdown">
+              <li><a class="dropdown-item" href="#" routerLink="registrarTurno">Registrar Turno</a></li>
+              <li><a class="dropdown-item" href="#" routerLink="consultarTurno">Consultar Turno</a></li>
+            </ul>
+          </li>
+          <!-- *ngIf="(idRol | async) !== 1" -->
+          <li class="nav-item"> 
+            <a class="nav-link" href="#" routerLink="reportes">Reportes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="cerrar()" *ngIf="isLoggedIn">Cerrar Sesion</a>
+          </li>
+        </ul>
+      </div>
     </nav>
   </div>
 </header>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <ul class="nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="turnosDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-info-circle"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="turnosDropdown">
+              <li><a class="dropdown-item" href="#" routerLink="tyc">Términos y Condiciones</a></li>
+              <li><a class="dropdown-item" href="#" routerLink="preguntas">Preguntas Frecuentes</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
 
 <router-outlet></router-outlet>

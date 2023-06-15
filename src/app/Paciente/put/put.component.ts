@@ -5,9 +5,7 @@ import { obraSocialProvider } from '../../Servicios/obraSocialProvider';
 import { PacienteProvider } from '../../Servicios/pacienteServicio';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { obraSocial } from '../../Interfaces/obraSocial';
-import { HttpParams } from '@angular/common/http';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-put',
   templateUrl: './put.component.html',
@@ -49,10 +47,10 @@ export class PutComponent implements OnInit, OnDestroy {
     this.obrasocialProvider.getObraSocial().subscribe((data) => {
       this.obrasSociales = data;
     });
-    this.cargarArticulo();
+    this.cargarPaciente();
   }
 
-  private cargarArticulo() {
+  private cargarPaciente() {
     this.subscription.add(
       this.activatedRoute.params.subscribe({
         next: (params) => {
@@ -61,7 +59,6 @@ export class PutComponent implements OnInit, OnDestroy {
             next: (respuesta: Paciente) => {
               this.paciente = respuesta;
               this.paciente.IdPaciente = id;
-              //console.log(this.paciente.IdPaciente)
             },
             error: () => {
               alert('error al obtener el paciente');
@@ -71,7 +68,6 @@ export class PutComponent implements OnInit, OnDestroy {
       })
     );
   }
-  //IdObraSocial: this.formulario.value.IdObraSocial,
 
   guardar() {
     if (this.formulario.valid) {
@@ -97,11 +93,21 @@ export class PutComponent implements OnInit, OnDestroy {
         this.pacienteProvider.modificar(paciente).subscribe({
           next: () => {
             this.router.navigate(['consultar']);
-            alert('Se actualizó correctamente');
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Se actualizo correctamente',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.formulario.reset();
           },
           error: (error) => {
-            alert('Error al actualizar');
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error al actualizar!',
+            })
             console.log(paciente);
             console.log(error);
           },

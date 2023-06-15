@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TurnoProvider } from 'src/app/Servicios/turnoProvider';
-
+import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-get',
   templateUrl: './get.component.html',
@@ -23,29 +24,82 @@ export class GetTurnoComponent implements OnInit {
     this.obtener();
   }
 
+  exportarDatos(): void {
+    // Realiza la solicitud a tu API para obtener los datos a exportar
+    this.turnoProvider.getTurnos().subscribe(data => {
+      // Transforma los datos a un formato compatible con XLSX
+      const datosExcel = this.transformarDatos(data);
+  
+      // Crea una hoja de trabajo en Excel
+      const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
+  
+      // Agrega la hoja de trabajo al libro
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Turnos');
+  
+      // Genera el archivo Excel
+      const fechaActual = new Date().toISOString().slice(0, 10); // Obtiene la fecha actual
+      const nombreArchivo = `turnos_${fechaActual}.xlsx`;
+      XLSX.writeFile(workbook, nombreArchivo);
+    });
+  }
+  
+
+  transformarDatos(data: any[]): any[] {
+    const datosTransformados = [];
+  
+    console.log(data)
+    for (const turno of data) {
+      const datosTurno = {
+        Fecha: turno.detalleTurno?.fecha,
+        Horario: `${turno.detalleTurno?.horaInicio} - ${turno.detalleTurno?.horaFin}`,
+        Tratamiento: turno.detalleTurno?.tratamiento?.objetivo,
+        'Medio de Pago': turno.detalleTurno?.medioPago?.tipoMedioPago ? 'Efectivo' : 'Tarjeta',
+        'Obra Social': turno.detalleTurno?.obraSocial?.descripcion,
+        Precio : turno.detalleTurno?.precio
+      };
+  
+      datosTransformados.push(datosTurno);
+    }
+  
+    return datosTransformados;
+  }
+  
+
 obtener(){
   this.turnoProvider.getTurnos().subscribe(data => {this.Turnos = data} )
 }
 
   eliminar(id:number) {
-    const result: boolean = confirm(
-      'Está seguro que desea borrar la orden?'
-    );
-
-    if (result) {
-      this.subscription.add(
-        this.turnoProvider.eliminar(id).subscribe({
-          next: () => {
-            alert('se borro correctamente')
-            this.obtener();
-          },
-          error: (error) => {
-            alert('error al borrar la orden');
-            console.log(error);
-          },
-        })
-      );
-    }
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: "No podras revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.subscription.add(
+          this.turnoProvider.eliminar(id).subscribe({
+            next: () => {
+              Swal.fire(
+                'Eliminado!',
+                'El paciente fue borrado.',
+                'success'
+              )
+              this.obtener();
+            },
+            error: (error) => {
+              alert('error al borrar la orden');
+              console.log(error);
+            },
+          })
+        );
+       
+      }
+    })
   }
 
   filtrarPorFecha() {

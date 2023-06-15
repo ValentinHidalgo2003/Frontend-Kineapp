@@ -8,7 +8,7 @@ import { obraSocial } from 'src/app/Interfaces/obraSocial';
 import { obraSocialProvider } from 'src/app/Servicios/obraSocialProvider';
 import { PacienteProvider } from 'src/app/Servicios/pacienteServicio';
 import { AuthService } from 'src/app/auth.service';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -34,7 +34,7 @@ export class PostComponent implements OnInit {
         Nombre: [, [Validators.required, Validators.maxLength(150)]],
         Apellido: [, [Validators.required, Validators.maxLength(1000)]],
         Dni: [, Validators.minLength(8)],
-        fechaNacimento: [, Validators.required],
+        fechaNacimento: [],
         sexo: [, Validators.required],
         email: [, Validators.email],
         telefono: [],
@@ -85,10 +85,17 @@ export class PostComponent implements OnInit {
       this.subscripcion.add(
         this.pacienteProvider.agregar(paciente).subscribe({
           next: (data) => {
-            this.router.navigate(['consultar']);
-            alert('Se guardo correctamente');
+            this.router.navigate(['home']);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Se registro correctamente',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.formulario.reset();
-            this.authservice.setToken(data.token);
+            // this.authservice.setToken(data.token);
+            this.authservice.setLoggedIn(true);
           },
           error: (error) => {
             alert('error al guardar');
@@ -96,6 +103,14 @@ export class PostComponent implements OnInit {
           },
         })
       );
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Te faltan campos por completar!',
+        timer: 2000
+      })
     }
   }
   

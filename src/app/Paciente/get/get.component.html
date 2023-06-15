@@ -2,6 +2,7 @@
   <div class="patients-container">
     <hr>
       <h2 class="animate__animated animate__backInDown">Consulta de pacientes</h2>
+      <input type="text" [(ngModel)]="filtroNombre" placeholder="Filtrar por nombre">
       <div class="table-container">
         <table>
           <thead>
@@ -20,6 +21,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let paciente of Pacientes">
+              <ng-container *ngIf="paciente.nombre.toLowerCase().includes(filtroNombre.toLowerCase())">
               <td>{{paciente.nombre}} {{paciente.apellido}}</td>
               <td>{{paciente.dni}}</td>
               <td>{{paciente.fechaNacimento | date:'dd/MM/yyyy'}}</td>
@@ -35,7 +37,8 @@
               <td>
                 <i class="bi bi-pencil separar" (click)="actualizarArticulo(paciente.idPaciente)"></i> 
                 <app-baja [idPaciente]="paciente.idPaciente" (onEliminar)="actualizarListado()"></app-baja>
-              </td>
+              </td>  
+            </ng-container>
             </tr>
           </tbody>
         </table>

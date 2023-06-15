@@ -10,12 +10,16 @@ import { PostTurnoComponent } from './Turnos/post/post.component';
 import { AuthGuard } from './auth.guard';
 import { reportesProvider } from './Servicios/reportesProvider';
 import { ReportesComponent } from './reportes/reportes.component';
+import { TycComponent } from './Info/tyc/tyc.component';
+import { PreguntasComponent } from './Info/preguntas/preguntas.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'registrar', component: PostComponent},
+  { path: 'tyc', component: TycComponent},
+  { path: 'preguntas', component: PreguntasComponent},
   { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard]},
   { path: 'consultar', component: GetComponent, canActivate: [AuthGuard] },
   { path: 'modificar/:id', component: PutComponent, canActivate: [AuthGuard] },

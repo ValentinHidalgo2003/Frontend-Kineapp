@@ -12,7 +12,7 @@ import { PacienteProvider } from 'src/app/Servicios/pacienteServicio';
   styleUrls: ['./get.component.css']
 })
 export class GetComponent implements OnInit {
-
+  filtroNombre: string = '';
   Pacientes : any = [];
   obraSocial : any = [];
   public modalAbierto = false;

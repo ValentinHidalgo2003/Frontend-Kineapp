@@ -7,14 +7,17 @@
         <div class="form-group">
           <label for="Nombre" class="form-label animate__animated animate__backInDown">Nombre</label>
           <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Ingresa el nombre del paciente" formControlName="Nombre">
+          <span class="error-message" *ngIf="formulario.controls['Nombre'].touched && formulario.controls['Nombre'].hasError('required')">Nombre requerido</span>
         </div>
         <div class="form-group">
           <label for="Apellido" class="form-label animate__animated animate__backInDown">Apellido</label>
           <input type="text" id="Apellido" class="form-control" name="Apellido" placeholder="Ingresa el apellido del paciente" formControlName="Apellido">
+          <span class="error-message" *ngIf="formulario.controls['Apellido'].touched && formulario.controls['Apellido'].hasError('required')">Apellido requerido</span>        
         </div>
         <div class="form-group">
           <label for="Dni" class="form-label animate__animated animate__backInDown">DNI</label>
           <input type="number" id="Dni" name="Dni" class="form-control" placeholder="Ingresa el DNI del paciente" formControlName="Dni">
+          <span class="error-message" *ngIf="formulario.controls['Dni'].touched && formulario.controls['Dni'].hasError('minLength')">DNI debe tener al menos 8 caracteres</span>
         </div>
         <div class="form-group">
           <label for="fechaNacimento" class="form-label animate__animated animate__backInDown">Fecha de nacimiento</label>
@@ -27,6 +30,7 @@
             <option value="" disabled selected>Selecciona una obra social</option>
             <option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.idObra">{{ obraSocial.descripcion }} </option>
           </select>
+          <span class="error-message" *ngIf="formulario.controls['IdObraSocial'].touched && formulario.controls['IdObraSocial'].hasError('required')">Obra Social requerida</span>        
         </div>
         
         
@@ -45,6 +49,7 @@
         <div class="form-group">
           <label for="email" class="form-label animate__animated animate__backInDown">Correo electrónico</label>
           <input type="email" id="email" name="email" placeholder="Ingresa el correo electrónico del paciente" formControlName="email">
+          <span class="error-message" *ngIf="formulario.controls['email'].touched && formulario.controls['email'].hasError('email')">No tiene forma de email</span>        
         </div>
         <div class="form-group">
           <label for="phone" class="form-label animate__animated animate__backInDown">Teléfono</label>
@@ -60,15 +65,15 @@
         <div formGroupName="historialMedico">
           <div class="form-group">
             <label for="fechaCreacion" class="form-label animate__animated animate__backInDown">fecha de creacion del historial</label>
-            <input type="date" id="fechaCreacion" name="fechaCreacion" placeholder="Ingresa la fecha de creacion del historial del paciente" formControlName="fechaCreacion">
+            <input type="date" id="fechaCreacion" class="form-control" name="fechaCreacion" placeholder="Ingresa la fecha de creacion del historial del paciente" formControlName="fechaCreacion">
           </div>
           <div class="form-group">
             <label for="descripcion" class="form-label animate__animated animate__backInDown">Descripcion</label>
-            <input type="text" id="descripcion" name="descripcion" placeholder="Ingresa la descripcionn del historial del paciente" formControlName="descripcion">
+            <input type="text" id="descripcion" class="form-control" name="descripcion" placeholder="Ingresa la descripcionn del historial del paciente" formControlName="descripcion">
           </div>
           <div class="form-group">
             <label for="nota" class="form-label animate__animated animate__backInDown">Nota</label>
-            <input type="text" id="nota" name="nota" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="nota">
+            <input type="text" id="nota" class="form-control" name="nota" placeholder="Ingresa alguna nota adicional al historial del paciente" formControlName="nota">
           </div>
         </div>
 <hr>
@@ -76,11 +81,11 @@
         <div formGroupName="usuario">
           <div class="form-group">
             <label for="nombreUsuario" class="form-label animate__animated animate__backInDown">Nombre de Usuario</label>
-            <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresa su nuevo nombre de Usuario" formControlName="nombreUsuario">
+            <input type="text" id="nombreUsuario" class="form-control" name="nombreUsuario" placeholder="Ingresa su nuevo nombre de Usuario" formControlName="nombreUsuario">
           </div>
           <div class="form-group">
             <label for="password" class="form-label animate__animated animate__backInDown">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="Ingresa su nueva contraseña" formControlName="password">
+            <input type="password" id="password" class="form-control" name="password" placeholder="Ingresa su nueva contraseña" formControlName="password">
           </div>
         </div>
     </div>
@@ -90,4 +95,3 @@
   </div>
   </section>
 
-  

@@ -15,17 +15,6 @@ export class kinesiologoProvider {
   };
   apiUrlBase: string = environment.urlBaseApi;
   constructor(private http: HttpClient) {}
-  
-    private handleError(error: HttpErrorResponse) {
-        if (error.status === 0) {
-            console.log("Error: " + error.message)
-        }
-        else {
-            console.log("Status Code: " + error.status)
-        }
-        return throwError(() => new Error((error.error)));
-    }
- 
 
   getKinesiologos(): Observable<any> {
     const url = this.apiUrlBase + 'api/Kinesiologo/Get';

@@ -30,4 +30,15 @@ export class reportesProvider {
     const url = `${this.apiUrlBase}api/Reporte/Mes/${mes}`;
     return this.http.get(url, this._options);
   }
+
+  getReporte3(dia: string): Observable<any>{
+    const url = `${this.apiUrlBase}api/Reporte/TurnosAtendidos/${dia}`;
+    return this.http.get(url,this._options)
+  }
+
+  getReporte4(): Observable<any>  {
+   const url = this.apiUrlBase + 'api/Reporte/TurnosXSemana';
+    return this.http.get(url, this._options);
+  }
+  
 }
