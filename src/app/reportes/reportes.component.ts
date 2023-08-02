@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angula
 import { reportesProvider } from '../Servicios/reportesProvider';
 import { error } from 'console';
 import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
+import Swal from 'sweetalert2';
 Chart.register(...registerables);
 
 @Component({
@@ -30,10 +31,24 @@ export class ReportesComponent implements AfterViewInit {
   }
 
   llamarAPI() {
-    this.reportes.getReporte2(this.mes).subscribe((data) => {
-      console.log(data)
-      this.createChart(data.totalTarjeta, data.totalEfectivo);
-    });
+    this.reportes.getReporte2(this.mes).subscribe(
+      (data) => {
+        console.log(data);
+        if (data.totalTarjeta === 0 && data.totalEfectivo === 0) {
+          // Lanzar alerta de SweetAlert indicando que el mes no tiene nada recaudado
+          Swal.fire({
+            title: 'Sin recaudación',
+            text: 'El mes no tiene ninguna recaudación',
+            icon: 'info',
+          });
+        } else {
+          this.createChart(data.totalTarjeta, data.totalEfectivo);
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   createChart(totalTarjeta: number, totalEfectivo: number): void {
@@ -103,46 +118,57 @@ export class ReportesComponent implements AfterViewInit {
     });
   }
   
-  crearGrafico3(): void {
-    this.reportes.getReporte3(this.dia).subscribe((cantidadTurnos: number) => {
-      const chartData = {
-        labels: [this.dia],
-        datasets: [
-          {
-            label: 'Cantidad de Turnos',
-            data: [cantidadTurnos],
-            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-            borderColor: 'rgba(255, 159, 64, 1)',
-            borderWidth: 1,
-          },
-        ],
-      };
+  // crearGrafico3(): void {
+  //   this.reportes.getReporte3(this.dia).subscribe((cantidadTurnos: number) => {
+  //     const chartData = {
+  //       labels: [this.dia],
+  //       datasets: [
+  //         {
+  //           label: 'Cantidad de Turnos',
+  //           data: [cantidadTurnos],
+  //           backgroundColor: 'rgba(255, 159, 64, 0.2)',
+  //           borderColor: 'rgba(255, 159, 64, 1)',
+  //           borderWidth: 1,
+  //         },
+  //       ],
+  //     };
   
-      const ctx = this.chartCanvas3.nativeElement.getContext('2d');
-      if (this.chart3) {
-        this.chart3.destroy();
-      }
-      this.chart3 = new Chart(ctx, {
-        type: 'doughnut',
-        data: chartData,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      } as any);
-    });
-  }
+  //     const ctx = this.chartCanvas3.nativeElement.getContext('2d');
+  //     if (this.chart3) {
+  //       this.chart3.destroy();
+  //     }
+  //     this.chart3 = new Chart(ctx, {
+  //       type: 'doughnut',
+  //       data: chartData,
+  //       options: {
+  //         responsive: true,
+  //         maintainAspectRatio: false,
+  //         scales: {
+  //           y: {
+  //             beginAtZero: true,
+  //           },
+  //         },
+  //       },
+  //     } as any);
+  //   });
+  // }
   
   crearGrafico4(): void {
     this.reportes.getReporte4().subscribe((data) => {
       console.log(data);
+  
+      const traducciones :any = {
+        Monday: 'Lunes',
+        Tuesday: 'Martes',
+        Wednesday: 'Miércoles',
+        Thursday: 'Jueves',
+        Friday: 'Viernes',
+        Saturday: 'Sábado',
+        Sunday: 'Domingo'
+      };
+  
       const chartData = {
-        labels: Object.keys(data),
+        labels: Object.keys(data).map((day) => traducciones[day]),
         datasets: [
           {
             label: 'Cantidad de Turnos',
@@ -170,7 +196,8 @@ export class ReportesComponent implements AfterViewInit {
             },
           },
         },
-      } as ChartConfiguration<"bar", number[], string>); // Especificar el tipo de configuración del gráfico
+      } as ChartConfiguration<'bar', number[], string>); // Especificar el tipo de configuración del gráfico
     });
   }
+  
 }

@@ -4,6 +4,7 @@ import { error } from 'console';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -53,8 +54,12 @@ export class AuthService {
   }
 
   public logout(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Sesion Cerrada',
+      timer: 2000
+    })
     this.setLoggedIn(false);
-    alert('sesion cerrada')
   }
 
   setToken(token: string) {

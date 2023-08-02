@@ -18,33 +18,33 @@ export class BajaComponent implements OnDestroy {
   }
 
   eliminar() {
-      this.subscription.add(
-        this.pacienteProvider.eliminar(this.idPaciente).subscribe({
-          next: () => {
-            this.onEliminar.emit();
-            Swal.fire({
-              title: 'Estas Seguro?',
-              text: "No podras revertir esto!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, eliminar!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.fire(
-                  'Eliminado!',
-                  'El paciente fue borrado.',
-                  'success'
-                )
-              }
-            })
-          },
-          error: () => {
-            alert('error al borrar');
-          },
-        })
-      );
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: "No podras revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminado!',
+          'El paciente fue borrado.',
+          'success'
+        )
+        this.subscription.add(
+          this.pacienteProvider.eliminar(this.idPaciente).subscribe({
+            next: () => {
+              this.onEliminar.emit();
+            },
+            error: () => {
+              alert('error al borrar');
+            },
+          })
+        );
+      }
+    })
     
   }
 }

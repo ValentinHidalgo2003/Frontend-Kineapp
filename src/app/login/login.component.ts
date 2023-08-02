@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -21,16 +21,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
-      nombreUsuario: [,Validators.required],
-      password: [,Validators.required],
+      nombreUsuario: [, Validators.required],
+      password: [, Validators.required],
     });
   }
 
-   guardar() {
+  guardar() {
     if (this.formulario.valid) {
       const paciente = {
-       nombreUsuario : this.formulario.value.nombreUsuario,
-       password : this.formulario.value.password
+        nombreUsuario: this.formulario.value.nombreUsuario,
+        password: this.formulario.value.password,
       };
 
       this.subscripcion.add(
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
               icon: 'success',
               title: 'Sesion iniciada Correctamente',
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500,
             });
             this.formulario.reset();
             console.log(data);
@@ -53,9 +53,8 @@ export class LoginComponent implements OnInit {
               icon: 'error',
               title: 'Oops...',
               text: 'Usuario o Contraseña incorrecta!',
-            })
-            if(this.authservice.isLoggedIn())
-            this.formulario.reset();
+            });
+            if (this.authservice.isLoggedIn()) this.formulario.reset();
           },
         })
       );

@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   urlBaseApi: "https://localhost:7167/"
+  // urlBaseApi: "http://www.kineapp.somee.com/"
 };
 
 /*

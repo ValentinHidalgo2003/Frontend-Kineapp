@@ -45,7 +45,8 @@ import { PreguntasComponent } from './Info/preguntas/preguntas.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+   
   ],
   providers: [
     PacienteProvider,

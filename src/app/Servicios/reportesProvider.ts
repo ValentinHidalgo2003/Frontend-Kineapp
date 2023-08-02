@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
-  HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { catchError, Observable, throwError } from 'rxjs';
-import { Paciente } from '../Interfaces/Paciente';
-import { url } from 'inspector';
-import { ReporteCobros } from '../Interfaces/reporteCobro';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class reportesProvider {
@@ -37,8 +33,7 @@ export class reportesProvider {
   }
 
   getReporte4(): Observable<any>  {
-   const url = this.apiUrlBase + 'api/Reporte/TurnosXSemana';
+   const url = this.apiUrlBase + 'api/Reporte/TurnosPorDiaSemana';
     return this.http.get(url, this._options);
   }
-  
 }
